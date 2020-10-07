@@ -14,15 +14,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    $books = DB::table('books')->get();
+    $books = DB::table('books')->paginate(10);
     return view('welcome', compact('books'));
 });
 
 
 Auth::routes();
-
-Route::get('/redirect', 'SocialAuthFacebookController@redirect');
-Route::get('/callback', 'SocialAuthFacebookController@callback');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -50,23 +47,3 @@ Route::put('books/{book}', [
     'uses' => 'BooksController@update',
     'as' => 'books.update'
 ]);
-
-Route::prefix('manage')->middleware('role:root|administrator')->group(function () { 
-
-
-    Route::get('/', 'ManageController@index');
-
-
-    Route::get('/dashboard', 'ManageController@dashboard')->name('manage.dashboard');
-
-
-    Route::resource('/users', 'UserController');
-
-
-    Route::resource('/permissions', 'PermissionController', ['except' => 'destroy']);
-
-
-    Route::resource('/roles', 'RoleController', ['except' => 'destroy']);
-
-
-}); 

@@ -62,7 +62,7 @@ class BooksController extends Controller
         $book->filename = $cover->getFilename().'.'.$extension;
         $book->save();
 
-        return redirect()->route('home');
+        return redirect()->route('home')->with('status', 'Dodano nowe ogłoszenie!');;
     }
 
     /**

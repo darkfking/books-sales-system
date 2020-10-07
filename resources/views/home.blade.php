@@ -4,7 +4,14 @@
 <div class="container">
     <div class="row justify-content-center">
       <h2>Moje ogłoszenia</h2>
-      
+
+      @if (session('status'))
+      <br>
+      <div class="alert alert-success">
+          {{ session('status') }}
+      </div>
+      @endif
+
         @foreach ($mybooks as $book)
         <div class="col-12 mt-5">
           <div class="card text-right shadow-sm p-3 mb-5 bg-white rounded">
